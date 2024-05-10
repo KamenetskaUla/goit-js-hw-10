@@ -30,3 +30,34 @@
   padding: 30px;
   gap: 20px;
 }
+.body-timer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 340px;
+  padding: 30px;
+}
+.timer-input {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+.timer {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  margin: 0 auto;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: calc((100% - 3 * 30px) / 4);
+}
+.label {
+  font-weight: 600;
+}
+.value {
+  font-weight: 800;
+  font-size: 40px;
+}
