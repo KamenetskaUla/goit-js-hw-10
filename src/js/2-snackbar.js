@@ -26,10 +26,12 @@ function createPromise(delay, state) {
 function resultHandler(result) {
   iziToast.success({
     message: `✅ Fulfilled promise in ${result}ms`,
+    position: 'topRight',
   });
 }
 function errorHandler(error) {
   iziToast.error({
     message: `❌ Rejected promise in ${error}ms`,
+    position: 'topRight',
   });
 }

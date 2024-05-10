@@ -23,3 +23,10 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 360px;
+  padding: 30px;
+  gap: 20px;
+}
