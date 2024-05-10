@@ -1,9 +1,20 @@
 import flatpickr from 'flatpickr';
 
 import 'flatpickr/dist/flatpickr.min.css';
+
+import iziToast from 'izitoast';
+
+import 'izitoast/dist/css/iziToast.min.css';
+
 let userSelectedDate = null;
 const btnStart = document.querySelector('[data-start]');
+const secondsSpan = document.querySelector('[data-seconds]');
+const minutesSpan = document.querySelector('[data-minutes]');
+const hoursSpan = document.querySelector('[data-hours]');
+const daysSpan = document.querySelector('[data-days]');
+const input = document.querySelector('#datetime-picker');
 btnStart.disabled = true;
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -12,7 +23,10 @@ const options = {
   onClose(selectedDates) {
     console.log(selectedDates[0]);
     if (selectedDates[0] <= new Date()) {
-      alert('Please choose a date in the future');
+      iziToast.warning({
+        title: 'Caution',
+        message: 'Please choose a date in the future',
+      });
       btnStart.disabled = true;
     } else {
       btnStart.disabled = false;
@@ -22,16 +36,26 @@ const options = {
 };
 
 flatpickr('#datetime-picker', options);
+
 btnStart.addEventListener('click', onStartTimer);
 function onStartTimer() {
+  input.disabled = true;
+  btnStart.disabled = true;
   const intervalId = setInterval(() => {
     const diff = userSelectedDate - new Date();
-    console.log(convertMs(diff));
+    const date = convertMs(diff);
+    secondsSpan.textContent = pad(date.seconds);
+    minutesSpan.textContent = pad(date.minutes);
+    hoursSpan.textContent = pad(date.hours);
+    daysSpan.textContent = pad(date.days);
+
     if (diff < 1000) {
       clearInterval(intervalId);
+      input.disabled = false;
     }
   }, 1000);
 }
+
 function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
@@ -47,4 +71,7 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
+}
+function pad(value) {
+  return String(value).padStart(2, '0');
 }
